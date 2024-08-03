@@ -19,6 +19,9 @@ class PmergeMe {
 		PmergeMe(PmergeMe const &copy);
 		PmergeMe &operator=(PmergeMe const &copy);
 		void	fillVector(char **av);
+		void	sortVec();
+		std::vector<std::pair<void *, void *> *>	recursiveSortVec(std::vector<std::pair<void *, void *> *> before);
+		std::vector<std::pair<void *, void *> *>	swapTheLastTwoVector(std::vector<std::pair<void *, void *> *> before);
 };
 
 #endif

@@ -26,7 +26,10 @@ int main(int ac, char **av) {
 		Pmerge.fillVector(av);
 	}
 	catch (std::exception &e) {
-		std::cout << "Error during vector fill" << std::endl;
+		std::cout << "Error : too big number" << std::endl;
 		return 1 ;
 	}
+
+	Pmerge.sortVec();
+
 }
