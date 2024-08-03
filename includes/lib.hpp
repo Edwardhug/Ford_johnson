@@ -3,6 +3,6 @@
 
 # include "PmergeMe.hpp"
 
-unsigned long int *atoui(char *str);
+void *atoui(char *str);
 
 #endif

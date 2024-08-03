@@ -2,6 +2,7 @@
 # define PMERGEME_CPP
 
 #include <vector>
+# include <utility>
 #include <iostream>
 
 class PmergeMe {
@@ -9,6 +10,7 @@ class PmergeMe {
 	private:
 		int _deep;
 		std::vector<void *> _vec;
+		std::vector<std::pair<void *, void *>*> _pairVec;
 
 	public:
 

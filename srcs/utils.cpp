@@ -1,7 +1,7 @@
 #include "../includes/lib.hpp"
 #include "../includes/PmergeMe.hpp"
 
-unsigned long int *atoui(char *str) {
+void *atoui(char *str) {
 	unsigned long int ret;
 	ret = 0;
 	int i = 0;
@@ -16,7 +16,7 @@ unsigned long int *atoui(char *str) {
 	}
 	if (ret > 4294967295)
 		throw (std::exception());
-	unsigned long int *addr = new unsigned long int(ret);
+	void *addr = new unsigned long int(ret);
 	// std::cout << "pass" << *addr << std::endl;
 	return (addr);
 }
