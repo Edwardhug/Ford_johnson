@@ -1,7 +1,7 @@
 #include "../includes/PmergeMe.hpp"
 #include "../includes/lib.hpp"
 
-PmergeMe::PmergeMe() :_deep(1) {}
+PmergeMe::PmergeMe() :_deep(0) {}
 
 PmergeMe::~PmergeMe() {
     for (std::vector<void *>::iterator it = _vec.begin(); it != _vec.end(); ++it) {

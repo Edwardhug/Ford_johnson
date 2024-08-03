@@ -33,7 +33,5 @@ int main(int ac, char **av) {
 
 	std::vector<std::pair<void *, void *> *> copy = Pmerge.getPairVec();
 	printVecPair(copy);
-	Pmerge.swapTheLastTwoVector(copy);
-	printVecPair(copy);
-	// Pmerge.sortVec();
+	Pmerge.sortVec();
 }
