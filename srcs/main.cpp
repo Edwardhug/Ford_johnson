@@ -1,4 +1,5 @@
 #include "../includes/PmergeMe.hpp"
+#include "../includes/lib.hpp"
 #include <exception>
 
 bool isDigit(char *str) {
@@ -30,6 +31,9 @@ int main(int ac, char **av) {
 		return 1 ;
 	}
 
-	Pmerge.sortVec();
-
+	std::vector<std::pair<void *, void *> *> copy = Pmerge.getPairVec();
+	printVecPair(copy);
+	Pmerge.swapTheLastTwoVector(copy);
+	printVecPair(copy);
+	// Pmerge.sortVec();
 }

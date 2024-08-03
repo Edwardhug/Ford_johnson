@@ -21,7 +21,10 @@ class PmergeMe {
 		void	fillVector(char **av);
 		void	sortVec();
 		std::vector<std::pair<void *, void *> *>	recursiveSortVec(std::vector<std::pair<void *, void *> *> before);
-		std::vector<std::pair<void *, void *> *>	swapTheLastTwoVector(std::vector<std::pair<void *, void *> *> before);
+		void	swapTheLastTwoVector(std::vector<std::pair<void *, void *> *> &before);
+		unsigned long int	dataOfPairVector(std::vector<std::pair<void *, void *> *>::iterator it);
+
+		std::vector<std::pair<void *, void *>*>	getPairVec();
 };
 
 #endif

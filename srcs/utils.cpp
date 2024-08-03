@@ -20,3 +20,15 @@ void *atoui(char *str) {
 	// std::cout << "pass" << *addr << std::endl;
 	return (addr);
 }
+
+void	printVecPair(std::vector<std::pair<void *, void *>*> pair) {
+	std::cout << "Contenu de _pairVec :" << std::endl;
+    for (std::vector<std::pair<void *, void *> *>::iterator it = pair.begin(); it != pair.end(); ++it) {
+        unsigned long int *first = static_cast<unsigned long int *>((*it)->first);
+        unsigned long int *second = static_cast<unsigned long int *>((*it)->second);
+		if (!second)
+			std::cout << "(" << *first << ", " << "NULL" << ")" << std::endl;
+		else
+			std::cout << "(" << *first << ", " << *second << ")" << std::endl;
+    }
+}
