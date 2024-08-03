@@ -17,14 +17,21 @@ PmergeMe &PmergeMe::operator=(PmergeMe const &copy) {
 }
 
 void PmergeMe::fillVector(char **av) {
-    std::vector<unsigned long int *> tmp;
+    std::vector<void *> tmp;
     
     for (size_t i = 1; av[i]; i++) {
-        tmp.push_back(atoui(av[i]));
+        tmp.push_back(static_cast<void *>(atoui(av[i])));
     }
 
+    // Afficher les valeurs contenues dans le vecteur
+    for (std::vector<void *>::iterator it = tmp.begin(); it != tmp.end(); ++it) {
+        unsigned long int *value = static_cast<unsigned long int *>(*it);
+        std::cout << *value << " "; // Déréférencer pour obtenir la valeur
+    }
+    std::cout << std::endl;
 
-    for (std::vector<unsigned long int *>::iterator it = tmp.begin(); it != tmp.end(); ++it) {
-        delete *it;
+    // Libérer la mémoire allouée
+    for (std::vector<void *>::iterator it = tmp.begin(); it != tmp.end(); ++it) {
+        delete static_cast<unsigned long int *>(*it); // Libérer chaque unsigned long int alloué
     }
 }
