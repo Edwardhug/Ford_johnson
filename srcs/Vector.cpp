@@ -71,7 +71,7 @@ std::vector<std::pair<void *, void *> *>	PmergeMe::recursiveSortVec(std::vector<
 	_deep++;
 	printFirstVector(before);
 
-	if (before.size() == 2) {	// plus que deux elements, on les swap ou on les garde meme pas sur que ce soit utile se swapper
+	if (before.size() <= 2) {	// plus que deux elements, on les swap ou on les garde meme pas sur que ce soit utile se swapper
 		_deep--;
 		return (before);
 	}
