@@ -23,6 +23,7 @@ class PmergeMe {
 		std::vector<std::pair<void *, void *> *>	recursiveSortVec(std::vector<std::pair<void *, void *> *> before);
 		void	swapTheLastTwoVector(std::vector<std::pair<void *, void *> *> &before);
 		unsigned long int	dataOfPairVector(std::vector<std::pair<void *, void *> *>::iterator it);
+		std::vector<std::pair<void *, void *> *>	PmergeMe::pairageVec(std::vector<std::pair<void *, void *> *> &toSort);
 
 		std::vector<std::pair<void *, void *>*>	getPairVec();
 };
