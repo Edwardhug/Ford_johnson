@@ -130,10 +130,10 @@ std::vector<std::pair<void *, void *>*> PmergeMe::mergeInsertion(std::vector<std
     }
 
     // Insérer le premier petit nombre
-    result.insert(result.begin(), smallNumbers[0]);
+    // result.insert(result.begin(), smallNumbers[0]);
 
     // Insérer les autres petits nombres selon la suite de Jacobsthal
-    for (size_t i = 1; i < smallNumbers.size(); ++i) {
+    for (size_t i = 0; i < smallNumbers.size(); ++i) {
         std::pair<void *, void *>* toInsert = smallNumbers[i];
         
         // Recherche binaire pour trouver la position d'insertion
