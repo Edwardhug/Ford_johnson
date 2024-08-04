@@ -42,7 +42,7 @@ void	PmergeMe::freeVecPair(std::vector<std::pair<void *, void *> *> vec) {
 	}
 }
 
-std::vector<std::pair<void *, void *> *>	PmergeMe::pairageVec(std::vector<std::pair<void *, void *> *> &toSort) {
+std::vector<std::pair<void *, void *> *>	PmergeMe::pairingVec(std::vector<std::pair<void *, void *> *> &toSort) {
 	std::vector<std::pair<void *, void *> *> newVec;
 	for (std::vector<std::pair<void *, void *> *>::iterator it = toSort.begin(); it != toSort.end() && (it + 1) != toSort.end(); it += 2) {
 		if (dataOfPairVector(it) > dataOfPairVector(it + 1))
@@ -59,12 +59,30 @@ std::vector<std::pair<void *, void *> *>	PmergeMe::pairageVec(std::vector<std::p
 	return newVec;
 }
 
-void	PmergeMe::printFirstVector(std::vector<std::pair<void *, void *> *> vec) {
-	std::cout << "profondeur = " << _deep << " " << " value = ";
-		for (std::vector<std::pair<void *, void *> *>::iterator it = vec.begin(); it != vec.end(); it++) {
-		std::cout << dataOfPairVector(it) << " ";
-	}
-	std::cout << std::endl;
+std::vector<void *> PmergeMe::getOnlyBigVec(std::vector<std::pair<void *, void *> *> &vec) {
+    std::vector<void*> toRet;
+    for (std::vector<std::pair<void *, void *> *>::iterator it = vec.begin(); it != vec.end(); ++it) {
+        toRet.push_back((*it)->first);
+    }
+    return toRet;
+}
+
+std::vector<void *> PmergeMe::getOnlySmallVec(std::vector<std::pair<void *, void *> *> &vec) {
+    std::vector<void*> toRet;
+    for (std::vector<std::pair<void *, void *> *>::iterator it = vec.begin(); it != vec.end(); ++it) {
+        if ((*it)->second != NULL) {
+            toRet.push_back((*it)->second);
+        }
+    }
+    return toRet;
+}
+
+std::vector<std::pair<void *, void *>*> PmergeMe::depairingVec(std::vector<std::pair<void *, void *> *> &toDep) {
+	std::vector<void*> bigNumber = getOnlyBigVec(toDep);
+    std::vector<void*> smallNumber = getOnlySmallVec(toDep);
+
+	std::vector<std::pair<void *, void *>*> afterDep = mergeInsertion(bigNumber, smallNumber);
+	return (afterDep);
 }
 
 std::vector<std::pair<void *, void *> *>	PmergeMe::recursiveSortVec(std::vector<std::pair<void *, void *> *> before) {
@@ -75,15 +93,28 @@ std::vector<std::pair<void *, void *> *>	PmergeMe::recursiveSortVec(std::vector<
 		_deep--;
 		return (before);
 	}
-	std::vector<std::pair<void *, void *> *> newVec = pairageVec(before); // fais le pairage
+	std::vector<std::pair<void *, void *> *> newVec = pairingVec(before); // fais le pairage
 	std::vector<std::pair<void *, void *> *> retVec = recursiveSortVec(newVec); // rappelle de la fonction si on a plus de 2 element
 	freeVecPair(newVec);
 
+	retVec = depairingVec(retVec);
+	// std::cout << "depairging" << std::endl;
+	// printFirstVector(retVec);
 	_deep--;
-	return (before);
+	return (retVec);
 }
 
 void	PmergeMe::sortVec() {
 	std::vector<std::pair<void *, void *> *> toSort;
 	toSort = recursiveSortVec(_pairVec);
+}
+
+
+
+void	PmergeMe::printFirstVector(std::vector<std::pair<void *, void *> *> vec) {
+	std::cout << "profondeur = " << _deep << " " << " value = ";
+		for (std::vector<std::pair<void *, void *> *>::iterator it = vec.begin(); it != vec.end(); it++) {
+		std::cout << dataOfPairVector(it) << " ";
+	}
+	std::cout << std::endl;
 }

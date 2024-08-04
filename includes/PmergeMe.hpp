@@ -22,7 +22,12 @@ class PmergeMe {
 		void	sortVec();
 		std::vector<std::pair<void *, void *> *>	recursiveSortVec(std::vector<std::pair<void *, void *> *> before);
 		unsigned long int	dataOfPairVector(std::vector<std::pair<void *, void *> *>::iterator it);
-		std::vector<std::pair<void *, void *> *>	pairageVec(std::vector<std::pair<void *, void *> *> &toSort);
+		std::vector<std::pair<void *, void *> *>	pairingVec(std::vector<std::pair<void *, void *> *> &toSort);
+		std::vector<std::pair<void *, void *> *>	depairingVec(std::vector<std::pair<void *, void *> *> &toDep);
+		std::vector<void *> getOnlyBigVec(std::vector<std::pair<void *, void *> *> &vec);
+		std::vector<void *> getOnlySmallVec(std::vector<std::pair<void *, void *> *> &vec);
+		std::vector<std::pair<void *, void *>*> mergeInsertion(std::vector<void*>& bigNumbers, std::vector<void*>& smallNumbers);
+		void	insertSorted(std::vector<std::pair<void *, void *>*>& vec, void* value);
 
 		std::vector<std::pair<void *, void *>*>	getPairVec();
 		void	printFirstVector(std::vector<std::pair<void *, void *> *> vec);
