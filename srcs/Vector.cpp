@@ -78,7 +78,7 @@ std::vector<std::pair<void *, void *> *>	PmergeMe::recursiveSortVec(std::vector<
 	_deep++;
 	printFirstVector(before);
 
-	if (before.size() <= 2) {	// plus que deux elements, on les swap ou on les garde meme pas sur que ce soit utile se swapper
+	if (before.size() <= 1) {	// plus que deux elements, on les swap ou on les garde meme pas sur que ce soit utile se swapper
 		_deep--;
 		return (before);
 	}
@@ -116,6 +116,7 @@ std::vector<std::pair<void *, void *>*> PmergeMe::mergeInsertion(std::vector<std
     // Copier les grands nombres dans le résultat
     result = bigNumbers;
 
+    // Gérer le cas où smallNumbers est vide
     if (smallNumbers.empty()) {
         return result;
     }
@@ -132,27 +133,23 @@ std::vector<std::pair<void *, void *>*> PmergeMe::mergeInsertion(std::vector<std
     result.insert(result.begin(), smallNumbers[0]);
 
     // Insérer les autres petits nombres selon la suite de Jacobsthal
-    for (size_t i = 0; i < jacobsthal.size() && jacobsthal[i] <= smallNumbers.size(); ++i) {
-        size_t start = (i == 0) ? 1 : jacobsthal[i - 1];
-        size_t end = (jacobsthal[i] < smallNumbers.size()) ? jacobsthal[i] : smallNumbers.size();
-
-        for (size_t j = end; j > start; --j) {
-            std::pair<void *, void *>* toInsert = smallNumbers[j - 1];
-            
-            // Recherche binaire pour trouver la position d'insertion
-            size_t left = 0;
-            size_t right = result.size();
-            while (left < right) {
-                size_t mid = left + (right - left) / 2;
-                if (dataOfPairVector(result.begin() + mid) < dataOfPairVector(smallNumbers.begin() + j - 1)) {
-                    left = mid + 1;
-                } else {
-                    right = mid;
-                }
+    for (size_t i = 1; i < smallNumbers.size(); ++i) {
+        std::pair<void *, void *>* toInsert = smallNumbers[i];
+        
+        // Recherche binaire pour trouver la position d'insertion
+        size_t left = 0;
+        size_t right = result.size();
+        while (left < right) {
+            size_t mid = left + (right - left) / 2;
+            if (dataOfPairVector(result.begin() + mid) < dataOfPairVector(smallNumbers.begin() + i)) {
+                left = mid + 1;
+            } else {
+                right = mid;
             }
-
-            result.insert(result.begin() + left, toInsert);
         }
+
+        result.insert(result.begin() + left, toInsert);
     }
+
     return result;
 }
