@@ -9,19 +9,8 @@ void PmergeMe::fillVector(char **av) {
     for (size_t i = 1; av[i]; i++) {
         _vec.push_back(atoui(av[i]));
     }
-	for (std::vector<void *>::iterator it = _vec.begin(); it != _vec.end() && (it + 1) != _vec.end(); it += 2) {	
-		if ((*(static_cast<unsigned long int *>(*it))) > (*(static_cast<unsigned long int *>(*(it + 1))))) {
-			_pairVec.push_back(new std::pair<void *, void *>(*it, *(it + 1)));
-		}
-		else { 
-			_pairVec.push_back(new std::pair<void *, void *>(*(it + 1), *it));
-		}
-	}
-	if (_vec.size() % 2 == 1) {
-		for (std::vector<void *>::iterator it = _vec.begin(); it != _vec.end(); it ++) {
-			if ((it + 1) == _vec.end())
-				_pairVec.push_back(new std::pair<void *, void *>(*it, NULL));
-		}
+	for (std::vector<void *>::iterator it = _vec.begin(); it != _vec.end(); it ++) {
+		_pairVec.push_back(new std::pair<void *, void *>(*it, NULL));
 	}
 }
 
@@ -59,31 +48,13 @@ std::vector<std::pair<void *, void *> *>	PmergeMe::pairingVec(std::vector<std::p
 	return newVec;
 }
 
-std::vector<void *> PmergeMe::getOnlyBigVec(std::vector<std::pair<void *, void *> *> &vec) {
-    std::vector<void*> toRet;
-    for (std::vector<std::pair<void *, void *> *>::iterator it = vec.begin(); it != vec.end(); ++it) {
-        toRet.push_back((*it)->first);
-    }
-    return toRet;
-}
+// std::vector<std::pair<void *, void *>*> PmergeMe::depairingVec(std::vector<std::pair<void *, void *> *> &toDep) {
+// 	std::vector<std::pair<void *, void *>*> bigNumber = getOnlyBigVec(toDep);
+//     std::vector<std::pair<void *, void *>*> smallNumber = getOnlySmallVec(toDep);
 
-std::vector<void *> PmergeMe::getOnlySmallVec(std::vector<std::pair<void *, void *> *> &vec) {
-    std::vector<void*> toRet;
-    for (std::vector<std::pair<void *, void *> *>::iterator it = vec.begin(); it != vec.end(); ++it) {
-        if ((*it)->second != NULL) {
-            toRet.push_back((*it)->second);
-        }
-    }
-    return toRet;
-}
-
-std::vector<std::pair<void *, void *>*> PmergeMe::depairingVec(std::vector<std::pair<void *, void *> *> &toDep) {
-	std::vector<void*> bigNumber = getOnlyBigVec(toDep);
-    std::vector<void*> smallNumber = getOnlySmallVec(toDep);
-
-	std::vector<std::pair<void *, void *>*> afterDep = mergeInsertion(bigNumber, smallNumber);
-	return (afterDep);
-}
+// 	std::vector<std::pair<void *, void *>*> afterDep = mergeInsertion(bigNumber, smallNumber);
+// 	return (afterDep);
+// }
 
 std::vector<std::pair<void *, void *> *>	PmergeMe::recursiveSortVec(std::vector<std::pair<void *, void *> *> before) {
 	_deep++;
@@ -97,7 +68,7 @@ std::vector<std::pair<void *, void *> *>	PmergeMe::recursiveSortVec(std::vector<
 	std::vector<std::pair<void *, void *> *> retVec = recursiveSortVec(newVec); // rappelle de la fonction si on a plus de 2 element
 	freeVecPair(newVec);
 
-	retVec = depairingVec(retVec);
+	// retVec = depairingVec(retVec);
 	// std::cout << "depairging" << std::endl;
 	// printFirstVector(retVec);
 	_deep--;
