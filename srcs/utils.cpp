@@ -1,5 +1,7 @@
-#include "../includes/lib.hpp"
-#include "../includes/PmergeMe.hpp"
+# include "../includes/lib.hpp"
+# include "../includes/PmergeMe.hpp"
+# include <sys/time.h>
+# include <ctime>
 
 void *atoui(char *str) {
 	unsigned long int ret;
@@ -17,18 +19,19 @@ void *atoui(char *str) {
 	if (ret > 4294967295)
 		throw (std::exception());
 	void *addr = new unsigned long int(ret);
-	// std::cout << "pass" << *addr << std::endl;
 	return (addr);
 }
 
-void	printVecPair(std::vector<std::pair<void *, void *>*> pair) {
-	std::cout << "Contenu de _pairVec :" << std::endl;
-    for (std::vector<std::pair<void *, void *> *>::iterator it = pair.begin(); it != pair.end(); ++it) {
-        unsigned long int *first = static_cast<unsigned long int *>((*it)->first);
-        unsigned long int *second = static_cast<unsigned long int *>((*it)->second);
-		if (!second)
-			std::cout << "(" << *first << ", " << "NULL" << ")" << std::endl;
-		else
-			std::cout << "(" << *first << ", " << *second << ")" << std::endl;
-    }
+void	PmergeMe::printResult(std::vector<std::pair<void *, void *> *> vec) {
+	_deep = 1;
+	for (std::vector<std::pair<void *, void *> *>::iterator it = vec.begin(); it != vec.end(); it++) {
+		std::cout << dataOfPairVector(it) << " ";
+	}
+	std::cout << std::endl;
+}
+
+long long	getCurrentTimeInMilliseconds() {
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+    return tv.tv_sec * 1000000LL + tv.tv_usec;
 }

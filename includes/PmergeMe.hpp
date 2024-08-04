@@ -1,9 +1,10 @@
 #ifndef PMERGEME_CPP
 # define PMERGEME_CPP
 
-#include <vector>
+# include <vector>
 # include <utility>
-#include <iostream>
+# include <iostream>
+# include "lib.hpp"
 
 class PmergeMe {
 
@@ -11,6 +12,10 @@ class PmergeMe {
 		int _deep;
 		std::vector<void *> _vec;
 		std::vector<std::pair<void *, void *>*> _pairVec;
+		std::vector<std::pair<void *, void *>*> _result;
+
+		long	_beforeVec;
+		long	_afterVec;
 
 	public:
 
@@ -26,14 +31,17 @@ class PmergeMe {
 		std::vector<std::pair<void *, void *> *>	depairingVec(std::vector<std::pair<void *, void *> *> &toDep);
 		std::vector<std::pair<void *, void *>*>	getOnlyBigVec(std::vector<std::pair<void *, void *> *> &vec);
 		std::vector<std::pair<void *, void *>*>	getOnlySmallVec(std::vector<std::pair<void *, void *> *> &vec);
-		std::vector<std::pair<void *, void *>*> mergeInsertion(std::vector<std::pair<void *, void *>*>& bigNumbers, std::vector<std::pair<void *, void *>*>& smallNumbers);
-		// std::vector<void *> getOnlySmallVec(std::vector<std::pair<void *, void *> *> &vec);
-		// std::vector<std::pair<void *, void *>*> mergeInsertion(std::vector<void*>& bigNumbers, std::vector<void*>& smallNumbers);
+		std::vector<std::pair<void *, void *>*> mergeInsertionVec(std::vector<std::pair<void *, void *>*>& bigNumbers, std::vector<std::pair<void *, void *>*>& smallNumbers);
 
-		std::vector<std::pair<void *, void *>*>	getPairVec();
-		void	printFirstVector(std::vector<std::pair<void *, void *> *> vec);
+		void	printResult(std::vector<std::pair<void *, void *> *> vec);
 		void	freeVecPair(std::vector<std::pair<void *, void *> *> vec);
 
+		std::vector<std::pair<void *, void *>*> getResult();
+		std::vector<std::pair<void *, void *>*>	getPairVec();
+		void	setDeep(int x);
+		void	setBeforeVec();
+		void	setAfterVec();
+		void	printTimeVec();
 };
 
 #endif

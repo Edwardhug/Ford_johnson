@@ -20,3 +20,11 @@ PmergeMe &PmergeMe::operator=(PmergeMe const &copy) {
 	_vec = copy._vec;
 	return (*this);
 }
+
+std::vector<std::pair<void *, void *>*> PmergeMe::getResult() {
+	return (_result);
+}
+
+void	PmergeMe::setDeep(int x) {
+	_deep = x;
+}

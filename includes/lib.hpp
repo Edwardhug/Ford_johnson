@@ -4,6 +4,6 @@
 # include "PmergeMe.hpp"
 
 void *atoui(char *str);
-void	printVecPair(std::vector<std::pair<void *, void *>*> pair) ;
+long long getCurrentTimeInMilliseconds();
 
 #endif

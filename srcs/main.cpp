@@ -30,8 +30,11 @@ int main(int ac, char **av) {
 		std::cout << "Error : too big number" << std::endl;
 		return 1 ;
 	}
-
-	// std::vector<std::pair<void *, void *> *> copy = Pmerge.getPairVec();
-	// printVecPair(copy);
+	std::cout << "Before : ";
+	Pmerge.printResult(Pmerge.getPairVec());
+	Pmerge.setDeep(0);
 	Pmerge.sortVec();
+	std::cout << "After  : ";
+	Pmerge.printResult(Pmerge.getResult());
+	Pmerge.printTimeVec();
 }
