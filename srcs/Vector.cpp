@@ -1,5 +1,6 @@
 #include "../includes/PmergeMe.hpp"
 #include "../includes/lib.hpp"
+#include <algorithm>
 
 std::vector<std::pair<void *, void *>*> PmergeMe::getPairVec() {
 	return (_pairVec);
@@ -52,26 +53,32 @@ std::vector<std::pair<void *, void *>*> PmergeMe::getOnlyBigVec(std::vector<std:
     std::vector<std::pair<void *, void *>*> toRet;
     for (std::vector<std::pair<void *, void *> *>::iterator it = vec.begin(); it != vec.end(); it++) {
         toRet.push_back(static_cast<std::pair<void *, void *> *>((*it)->first));
-		// toRet.push_back((*it)->first);
     }
-	std::cout << "etape d'avant = ";
-	printFirstVector(toRet);
     return toRet;
 }
 
-// std::vector<std::pair<void *, void *>*> PmergeMe::depairingVec(std::vector<std::pair<void *, void *> *> &toDep) {
-// 	std::vector<std::pair<void *, void *>*> bigNumber = getOnlyBigVec(toDep);
-//     // std::vector<std::pair<void *, void *>*> smallNumber = getOnlySmallVec(toDep);
+std::vector<std::pair<void *, void *>*> PmergeMe::getOnlySmallVec(std::vector<std::pair<void *, void *> *> &vec) {
+    std::vector<std::pair<void *, void *>*> toRet;
+    for (std::vector<std::pair<void *, void *> *>::iterator it = vec.begin(); it != vec.end(); it++) {
+		if ((*it)->second != NULL)
+        	toRet.push_back(static_cast<std::pair<void *, void *> *>((*it)->second));
+    }
+    return toRet;
+}
 
-// 	// std::vector<std::pair<void *, void *>*> afterDep = mergeInsertion(bigNumber, smallNumber);
-// 	// return (afterDep);
-// }
+std::vector<std::pair<void *, void *>*> PmergeMe::depairingVec(std::vector<std::pair<void *, void *> *> &toDep) {
+	std::vector<std::pair<void *, void *>*> bigNumber = getOnlyBigVec(toDep);
+    std::vector<std::pair<void *, void *>*> smallNumber = getOnlySmallVec(toDep);
+
+	std::vector<std::pair<void *, void *>*> afterDep = mergeInsertion(bigNumber, smallNumber);
+	return (afterDep);
+}
 
 std::vector<std::pair<void *, void *> *>	PmergeMe::recursiveSortVec(std::vector<std::pair<void *, void *> *> before) {
 	_deep++;
 	printFirstVector(before);
 
-	if (before.size() <= 1) {	// plus que deux elements, on les swap ou on les garde meme pas sur que ce soit utile se swapper
+	if (before.size() <= 2) {	// plus que deux elements, on les swap ou on les garde meme pas sur que ce soit utile se swapper
 		_deep--;
 		return (before);
 	}
@@ -79,10 +86,7 @@ std::vector<std::pair<void *, void *> *>	PmergeMe::recursiveSortVec(std::vector<
 	std::vector<std::pair<void *, void *> *> retVec = recursiveSortVec(newVec); // rappelle de la fonction si on a plus de 2 element
 	// freeVecPair(newVec);
 
-	// retVec = depairingVec(retVec);
-	// std::cout << "depairging" << std::endl;
-	// printFirstVector(retVec);
-	// std::vector<std::pair<void *, void *>*> bigNumber = getOnlyBigVec(retVec);
+	retVec = depairingVec(retVec);
 	_deep--;
 	return (retVec);
 }
@@ -90,6 +94,9 @@ std::vector<std::pair<void *, void *> *>	PmergeMe::recursiveSortVec(std::vector<
 void	PmergeMe::sortVec() {
 	std::vector<std::pair<void *, void *> *> toSort;
 	toSort = recursiveSortVec(_pairVec);
+	std::cout << "Result = ";
+	_deep++;
+	printFirstVector(toSort);
 }
 
 
@@ -100,4 +107,52 @@ void	PmergeMe::printFirstVector(std::vector<std::pair<void *, void *> *> vec) {
 		std::cout << dataOfPairVector(it) << " ";
 	}
 	std::cout << std::endl;
+}
+
+std::vector<std::pair<void *, void *>*> PmergeMe::mergeInsertion(std::vector<std::pair<void *, void *>*>& bigNumbers, std::vector<std::pair<void *, void *>*>& smallNumbers) {
+    std::vector<std::pair<void *, void *>*> result;
+    result.reserve(bigNumbers.size() + smallNumbers.size());
+
+    // Copier les grands nombres dans le résultat
+    result = bigNumbers;
+
+    if (smallNumbers.empty()) {
+        return result;
+    }
+
+    // Générer la suite de Jacobsthal
+    std::vector<size_t> jacobsthal;
+    jacobsthal.push_back(1);
+    jacobsthal.push_back(3);
+    while (jacobsthal.back() < smallNumbers.size()) {
+        jacobsthal.push_back(jacobsthal[jacobsthal.size() - 1] + 2 * jacobsthal[jacobsthal.size() - 2]);
+    }
+
+    // Insérer le premier petit nombre
+    result.insert(result.begin(), smallNumbers[0]);
+
+    // Insérer les autres petits nombres selon la suite de Jacobsthal
+    for (size_t i = 0; i < jacobsthal.size() && jacobsthal[i] <= smallNumbers.size(); ++i) {
+        size_t start = (i == 0) ? 1 : jacobsthal[i - 1];
+        size_t end = (jacobsthal[i] < smallNumbers.size()) ? jacobsthal[i] : smallNumbers.size();
+
+        for (size_t j = end; j > start; --j) {
+            std::pair<void *, void *>* toInsert = smallNumbers[j - 1];
+            
+            // Recherche binaire pour trouver la position d'insertion
+            size_t left = 0;
+            size_t right = result.size();
+            while (left < right) {
+                size_t mid = left + (right - left) / 2;
+                if (dataOfPairVector(result.begin() + mid) < dataOfPairVector(smallNumbers.begin() + j - 1)) {
+                    left = mid + 1;
+                } else {
+                    right = mid;
+                }
+            }
+
+            result.insert(result.begin() + left, toInsert);
+        }
+    }
+    return result;
 }

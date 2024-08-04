@@ -24,7 +24,9 @@ class PmergeMe {
 		unsigned long int	dataOfPairVector(std::vector<std::pair<void *, void *> *>::iterator it);
 		std::vector<std::pair<void *, void *> *>	pairingVec(std::vector<std::pair<void *, void *> *> &toSort);
 		std::vector<std::pair<void *, void *> *>	depairingVec(std::vector<std::pair<void *, void *> *> &toDep);
-		std::vector<std::pair<void *, void *>*> getOnlyBigVec(std::vector<std::pair<void *, void *> *> &vec);
+		std::vector<std::pair<void *, void *>*>	getOnlyBigVec(std::vector<std::pair<void *, void *> *> &vec);
+		std::vector<std::pair<void *, void *>*>	getOnlySmallVec(std::vector<std::pair<void *, void *> *> &vec);
+		std::vector<std::pair<void *, void *>*> mergeInsertion(std::vector<std::pair<void *, void *>*>& bigNumbers, std::vector<std::pair<void *, void *>*>& smallNumbers);
 		// std::vector<void *> getOnlySmallVec(std::vector<std::pair<void *, void *> *> &vec);
 		// std::vector<std::pair<void *, void *>*> mergeInsertion(std::vector<void*>& bigNumbers, std::vector<void*>& smallNumbers);
 
