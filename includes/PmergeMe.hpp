@@ -2,6 +2,7 @@
 # define PMERGEME_CPP
 
 # include <vector>
+# include <deque>
 # include <utility>
 # include <iostream>
 # include "lib.hpp"
@@ -42,6 +43,34 @@ class PmergeMe {
 		void	setBeforeVec();
 		void	setAfterVec();
 		void	printTimeVec();
+
+	private:
+		std::deque<void *> _deq;
+		std::deque<std::pair<void *, void *>*> _pairDeq;
+		std::deque<std::pair<void *, void *>*> _resultDeq;
+
+		long	_beforeDeq;
+		long	_afterDeq;
+
+	public:
+
+		void	fillDeque(char **av);
+		void	sortDeq();
+		std::deque<std::pair<void *, void *> *>	recursiveSortDeq(std::deque<std::pair<void *, void *> *> before);
+		unsigned long int	dataOfPairDeque(std::deque<std::pair<void *, void *> *>::iterator it);
+		std::deque<std::pair<void *, void *> *>	pairingDeq(std::deque<std::pair<void *, void *> *> &toSort);
+		std::deque<std::pair<void *, void *> *>	depairingDeq(std::deque<std::pair<void *, void *> *> &toDep);
+		std::deque<std::pair<void *, void *>*>	getOnlyBigDeq(std::deque<std::pair<void *, void *> *> &vec);
+		std::deque<std::pair<void *, void *>*>	getOnlySmallDeq(std::deque<std::pair<void *, void *> *> &vec);
+		std::deque<std::pair<void *, void *>*> mergeInsertionDeq(std::deque<std::pair<void *, void *>*>& bigNumbers, std::deque<std::pair<void *, void *>*>& smallNumbers);
+
+		void	printResult(std::deque<std::pair<void *, void *> *> vec);
+		void	freeDeqPair(std::deque<std::pair<void *, void *> *> vec);
+
+		std::deque<std::pair<void *, void *>*>	getPairDeq();
+		void	setBeforeDeq();
+		void	setAfterDeq();
+		void	printTimeDeq();
 };
 
 #endif

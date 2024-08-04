@@ -5,6 +5,7 @@ CFLAG = -Wall -Wextra -Werror -std=c++98 -g3
 SRCS =	main.cpp \
 		PmergeMe.cpp \
 		Vector.cpp \
+		Deque.cpp \
 		utils.cpp 
 
 INCLUDE =	PmergeMe.hpp \

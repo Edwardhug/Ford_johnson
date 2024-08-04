@@ -37,4 +37,15 @@ int main(int ac, char **av) {
 	std::cout << "After  : ";
 	Pmerge.printResult(Pmerge.getResult());
 	Pmerge.printTimeVec();
+
+	try {
+		Pmerge.fillDeque(av);
+	}
+	catch (std::exception &e) {
+		std::cout << "Error : too big number" << std::endl;
+		return 1 ;
+	}
+	Pmerge.setDeep(0);
+	Pmerge.sortDeq();
+	Pmerge.printTimeDeq();
 }
