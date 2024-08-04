@@ -48,29 +48,41 @@ std::vector<std::pair<void *, void *> *>	PmergeMe::pairingVec(std::vector<std::p
 	return newVec;
 }
 
+std::vector<std::pair<void *, void *>*> PmergeMe::getOnlyBigVec(std::vector<std::pair<void *, void *> *> &vec) {
+    std::vector<std::pair<void *, void *>*> toRet;
+    for (std::vector<std::pair<void *, void *> *>::iterator it = vec.begin(); it != vec.end(); it++) {
+        toRet.push_back(static_cast<std::pair<void *, void *> *>((*it)->first));
+		// toRet.push_back((*it)->first);
+    }
+	std::cout << "etape d'avant = ";
+	printFirstVector(toRet);
+    return toRet;
+}
+
 // std::vector<std::pair<void *, void *>*> PmergeMe::depairingVec(std::vector<std::pair<void *, void *> *> &toDep) {
 // 	std::vector<std::pair<void *, void *>*> bigNumber = getOnlyBigVec(toDep);
-//     std::vector<std::pair<void *, void *>*> smallNumber = getOnlySmallVec(toDep);
+//     // std::vector<std::pair<void *, void *>*> smallNumber = getOnlySmallVec(toDep);
 
-// 	std::vector<std::pair<void *, void *>*> afterDep = mergeInsertion(bigNumber, smallNumber);
-// 	return (afterDep);
+// 	// std::vector<std::pair<void *, void *>*> afterDep = mergeInsertion(bigNumber, smallNumber);
+// 	// return (afterDep);
 // }
 
 std::vector<std::pair<void *, void *> *>	PmergeMe::recursiveSortVec(std::vector<std::pair<void *, void *> *> before) {
 	_deep++;
 	printFirstVector(before);
 
-	if (before.size() <= 2) {	// plus que deux elements, on les swap ou on les garde meme pas sur que ce soit utile se swapper
+	if (before.size() <= 1) {	// plus que deux elements, on les swap ou on les garde meme pas sur que ce soit utile se swapper
 		_deep--;
 		return (before);
 	}
 	std::vector<std::pair<void *, void *> *> newVec = pairingVec(before); // fais le pairage
 	std::vector<std::pair<void *, void *> *> retVec = recursiveSortVec(newVec); // rappelle de la fonction si on a plus de 2 element
-	freeVecPair(newVec);
+	// freeVecPair(newVec);
 
 	// retVec = depairingVec(retVec);
 	// std::cout << "depairging" << std::endl;
 	// printFirstVector(retVec);
+	// std::vector<std::pair<void *, void *>*> bigNumber = getOnlyBigVec(retVec);
 	_deep--;
 	return (retVec);
 }
