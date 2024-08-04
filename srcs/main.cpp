@@ -31,7 +31,7 @@ int main(int ac, char **av) {
 		return 1 ;
 	}
 
-	std::vector<std::pair<void *, void *> *> copy = Pmerge.getPairVec();
-	printVecPair(copy);
+	// std::vector<std::pair<void *, void *> *> copy = Pmerge.getPairVec();
+	// printVecPair(copy);
 	Pmerge.sortVec();
 }

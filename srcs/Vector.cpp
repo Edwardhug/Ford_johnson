@@ -76,7 +76,7 @@ std::vector<std::pair<void *, void *>*> PmergeMe::depairingVec(std::vector<std::
 
 std::vector<std::pair<void *, void *> *>	PmergeMe::recursiveSortVec(std::vector<std::pair<void *, void *> *> before) {
 	_deep++;
-	printFirstVector(before);
+	// printFirstVector(before);
 
 	if (before.size() <= 1) {	// plus que deux elements, on les swap ou on les garde meme pas sur que ce soit utile se swapper
 		_deep--;
