@@ -85,6 +85,9 @@ std::vector<std::pair<void *, void *> *>	PmergeMe::recursiveSortVec(std::vector<
 	std::vector<std::pair<void *, void *> *> retVec = recursiveSortVec(newVec); // rappelle de la fonction si on a plus de 2 element
 
 	retVec = depairingVec(retVec);
+	for (std::vector<std::pair<void *, void *> *>::iterator it = newVec.begin(); it != newVec.end(); ++it) {
+        delete *it;
+    }
 	_deep--;
 	return (retVec);
 }

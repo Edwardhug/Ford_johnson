@@ -85,6 +85,9 @@ std::deque<std::pair<void *, void *> *>	PmergeMe::recursiveSortDeq(std::deque<st
 	std::deque<std::pair<void *, void *> *> retDeq = recursiveSortDeq(newDeq); // rappelle de la fonction si on a plus de 2 element
 
 	retDeq = depairingDeq(retDeq);
+	for (std::deque<std::pair<void *, void *> *>::iterator it = newDeq.begin(); it != newDeq.end(); ++it) {
+        delete *it;
+    }
 	_deep--;
 	return (retDeq);
 }

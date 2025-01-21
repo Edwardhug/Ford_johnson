@@ -10,6 +10,12 @@ PmergeMe::~PmergeMe() {
 	for (std::vector<std::pair<void *, void *> *>::iterator it = _pairVec.begin(); it != _pairVec.end(); it++) {
 		delete(*it);
 	}
+	for (std::deque<void *>::iterator it = _deq.begin(); it != _deq.end(); ++it) {
+        delete static_cast<unsigned long int *>(*it);
+    }
+    for (std::deque<std::pair<void *, void *> *>::iterator it = _pairDeq.begin(); it != _pairDeq.end(); it++) {
+        delete(*it);
+    }
 }
 
 PmergeMe::PmergeMe(PmergeMe const &copy) {
